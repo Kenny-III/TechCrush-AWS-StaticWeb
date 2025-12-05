@@ -1,6 +1,8 @@
 # TechCrush-AWS-StaticWeb 
 This repository contains the source code for a basic static website built with HTML and inline-CSS, and details the steps taken to deploy it using **Visual Studio Code (VS Code)** and **AWS Simple Storage Service (S3)**.
 
+![TechCrush Logo Image](Techcrush-Image.png)
+
 ## Deployment Steps Summary
 
 1.  **Local Development:** Created static files (`index.html`).
