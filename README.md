@@ -30,14 +30,27 @@ This repository contains the source code for a basic static website built with H
 2.  In VS Code Source Control, used the `...` menu -> **Push** -> **Add Remote...**.
 3.  Added the remote URL and pushed the changes to the `origin` remote.
 
-**Common Errors & Troubleshooting:**
+**Error Encountered & How I Resolved it:**
 
 | Error | Description | Resolution |
 | :--- | :--- | :--- |
-| **Authentication Failure** | `Authentication failed for 'https://github.com/...'` during push. | Ensure you are using a **Personal Access Token (PAT)** instead of your password for HTTPS clones, or set up SSH keys for SSH clones. |
-| **No Remote Set** | `fatal: The current branch master has no upstream branch.` | Use the command `git push --set-upstream origin main` (or `master`) to explicitly link your local branch to the remote one. |
+| **<Code>AccessDenied </Code> <Message>Access Denied </Message>** | The browser displays an XML page with this error when attempting to navigate to the S3 Website Endpoint URL `https://techcrush-s3-staticweb.s3.eu-north-1.amazonaws.com/index.html`. | Applying Bucket Policy: Ensured the Bucket Policy is present in the Permissions tab and correctly grants Effect": 
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::techcrush-s3-staticweb/*"
+        }
+    ]
+}. |
 
----
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -46,8 +59,8 @@ This repository contains the source code for a basic static website built with H
 ### 1. S3 Bucket Creation
 
 **Configuration Details:**
-* **Bucket Name:** `YOUR_BUCKET_NAME` (Must be globally unique)
-* **Region:** `YOUR_REGION`
+* **Bucket Name:** `techcrush-s3-staticweb`
+* **Region:** `eu-north-1`
 * **Block Public Access:** **DISABLED** (Unchecked) to allow public website access.
 
 ### 2. Static Website Hosting Configuration
@@ -56,12 +69,12 @@ This repository contains the source code for a basic static website built with H
 1.  Navigate to the **Properties** tab of the bucket.
 2.  Enabled **Static website hosting**.
 3.  Set **Index document** to `index.html`.
-4.  **Endpoint URL:** `http://YOUR_BUCKET_NAME.s3-website-YOUR_REGION.amazonaws.com`
+4.  **Endpoint URL:** `(https://techcrush-s3-staticweb.s3.eu-north-1.amazonaws.com/index.html)`
 
 ### 3. File Upload
 
 **Process:**
-* All project files (`index.html`, `styles.css`, `script.js`, etc.) were uploaded to the root of the S3 bucket.
+* The Project file (`index.html`) were uploaded to the root of the S3 bucket.
 
 ### 4. Public Bucket Policy
 
@@ -76,7 +89,7 @@ The following Bucket Policy was applied under the **Permissions** tab to allow p
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME/*"
+            "Resource": "arn:aws:s3:::techcrush-s3-staticweb/*"
         }
     ]
 }
